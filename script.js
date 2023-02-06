@@ -25,7 +25,7 @@ function geolocation(city){
 
 // Function add elemts to the HTML to display the content
 function weatherDisplay(locationW) {
-  
+    $("#today").empty();
     //var city = $(this).attr("data-name");
     console.log("weatherDisplay:", locationW);
     // define lat and lon
@@ -110,11 +110,34 @@ function weatherDisplay(locationW) {
     });
 }
 
+// Displaying list of cities in history
+function renderCities() {
+
+    // Deleting the cities list prior to adding new ones not to have repeated buttons
+        $("#history").empty();
+
+        // Looping through the array of cities
+        for (var i = 0; i < cities.length; i++) {
+
+            // Dynamicaly generating buttons for each city in the array
+            var btn = $("<button>");
+            // Add class of city-btn to our button
+            btn.addClass("city-btn");
+            // Add data-attribute to each button
+            btn.attr("data-name", cities[i]);
+            // Provides the initial button text
+            btn.text(cities[i]);
+            // Add button to the #history div
+            $("#history").prepend(btn);
+        }
+    }
+
   // This function handles events where a movie button is clicked
 $("#search-button").on("click", function(event) {
     event.preventDefault();
     // This line grabs the input from the textbox
     var city = $("#search-input").val().trim();
+    city = city[0].toUpperCase() + city.substring(1);
     console.log("city:", city);
     // Check id nothing has been entered
     if (city === "") {
