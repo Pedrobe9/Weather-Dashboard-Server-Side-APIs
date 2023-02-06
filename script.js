@@ -3,14 +3,13 @@
 var city;
 // Declare array to hold cities names
 var cities = [];
-
+var location = [];
 
 
 // Find geolocation coordinates: lat, lon
 function geolocation(city){
-    console.log("geolocation1:", city);
-    //var city = $(this).attr("data-name");
-    var queryURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=432622e4dda54ab6ab9f7868b5616f81";
+
+    var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=73022bce8f98139a77816edb0e805bb7";
     // Creating an AJAX call for the specific movie button being clicked
     $.ajax({
       url: queryURL,
@@ -18,22 +17,22 @@ function geolocation(city){
     }).then(function (response) {
       console.log("response:", response)
       console.log("response ajax:", response[0].lat, response[0].lon);
-      var location = [response[0].lat, response[0].lon]
-      return (location);
+      var locationG = [response[0].lat, response[0].lon]
+      //return (location);
+      weatherDisplay(locationG);
     });
     
   }
 
 
 // Function add elemts to the HTML to display the content
-function weatherDisplay(city) {
+function weatherDisplay(locationW) {
   
     //var city = $(this).attr("data-name");
-    console.log(city);
-    // Call function of geolocation to get lat and lon
-    location = geolocation(city);
-    var lat = location[0];
-    var lon = location[1];
+    console.log("weatherlocation function:", locationW);
+    // define lat and lon
+    var lat = locationW[0];
+    var lon = locationW[1];
     console.log("lat lon:", lat, lon);
 }
 
@@ -43,17 +42,22 @@ $("#search-button").on("click", function(event) {
     // This line grabs the input from the textbox
     var city = $("#search-input").val().trim();
     console.log("city:", city);
+    // Check id nothing has been entered
+    if (city === "") {
+        return;
+    }
     // Adding city searched to array
     cities.push(city);
     
-    // Calling function to display weather information
-    weatherDisplay(city);
+    // Calling function to workout geolocation
+    geolocation(city);
+    console.log("location-click");
     // Calling renderButtons which handles the processing of cities history array
-    //renderCities();
+    renderCities();
   });
  
   // Adding a click event listener to all elements with a class of "city-btn"
-  $(document).on("click", ".city-btn", weatherDisplay);
+  //$(document).on("click", ".city-btn", weatherDisplay);
  
   // Calling the renderCities function to display the initial buttons????????????????????????????????
   //renderCities();
