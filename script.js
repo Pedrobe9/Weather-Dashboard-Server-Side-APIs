@@ -3,7 +3,7 @@
 var city;
 // Declare array to hold cities names
 var cities = [];
-var location = [];
+
 
 
 // Find geolocation coordinates: lat, lon
@@ -34,6 +34,19 @@ function weatherDisplay(locationW) {
     var lat = locationW[0];
     var lon = locationW[1];
     console.log("lat lon:", lat, lon);
+    //var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat={" + lat + "}&lon={" + lon + "}&appid={" + APIkey + "}"
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=73022bce8f98139a77816edb0e805bb7";
+    // Creating an AJAX call for the specific movie button being clicked
+    $.ajax({
+        url: queryURL,
+        method: "GET",
+    }).then(function(responseW) {
+        console.log("weatherDispaly-ajax", responseW.list);
+        console.log("weatherDispaly-ajax-2", responseW.list[0]);
+        console.log("weatherDispaly-ajax-T", responseW.list[0].main.temp);
+        console.log("weatherDispaly-ajax-W", responseW.list[0].wind.speed);
+        console.log("weatherDispaly-ajax-H", responseW.list[0].main.humidity);
+    });
 }
 
   // This function handles events where a movie button is clicked
@@ -53,7 +66,7 @@ $("#search-button").on("click", function(event) {
     geolocation(city);
     console.log("location-click");
     // Calling renderButtons which handles the processing of cities history array
-    renderCities();
+    //renderCities();
   });
  
   // Adding a click event listener to all elements with a class of "city-btn"
