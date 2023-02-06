@@ -3,7 +3,7 @@
 var city;
 // Declare array to hold cities names
 var cities = [];
-
+var todayDate = moment().format("DD/MM/YYYY");
 
 
 // Find geolocation coordinates: lat, lon
@@ -15,8 +15,6 @@ function geolocation(city){
       url: queryURL,
       method: "GET"
     }).then(function (response) {
-      console.log("response:", response);
-      console.log("response ajax:", response[0].lat, response[0].lon);
       var locationG = [response[0].lat, response[0].lon, city];
       //return (locationG);
       weatherDisplay(locationG);
@@ -50,7 +48,35 @@ function weatherDisplay(locationW) {
         // Creating a div to hold the city
         var cityDiv = $("<div class='city'>");
         
+        //Weather Icons
+        var ic = responseW.list[0].weather[0].icon;
+        var icn;
+        if (ic == "01d" || ic == "01n") {
+            icn = $('<i class="fa-solid fa-sun"></i>');
+        } else if (ic == "02d" || ic == "02n") {
+            icn = $('<i class="fa-solid fa-cloud-sun"></i>');
+        } else if (ic == "03d" || ic == "03n") {
+            icn = $('<i class="fa-solid fa-cloud"></i>');
+        } else if (ic == "04d" || ic == "04n") {
+            icn = $('<i class="fa-solid fa-cloud"></i>');
+        } else if (ic == "09d" || ic == "09n") {
+            icn = $('<i class="fa-solid fa-cloud-showers-heavy"></i>');
+        } else if (ic == "10d" || ic == "10n") {
+            icn = $('<i class="fa-solid fa-cloud-sun-rain"></i>');
+        } else if (ic == "11d" || ic == "11n") {
+            icn = $('<i class="fa-solid fa-cloud-bolt"></i>');
+        } else if (ic == "13d" || ic == "13n") {
+            icn = $('<i class="fa-solid fa-snowflake"></i>');
+        } else if (ic == "50d" || ic == "50n") {
+            icn = $('<i class="fa-solid fa-smog"></i>');
+        }
 
+        //creating element to have name of city displayed
+        var pCity = $("<p>").text(locationW[2] + " " + todayDate + " ");
+        pCity.attr("id", "cityLabel");
+        pCity.append(icn);
+        // Dispalying the name
+        cityDiv.append(pCity);
 
         // Storing the temperature data converting from K to C.
         var temp = (responseW.list[0].main.temp - 273.15).toFixed(2);
