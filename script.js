@@ -23,55 +23,88 @@ function geolocation(city){
 }
 
 
+// Function to produce the weather icons
+function weatherIcons(ic) {
+    //Weather Icons
+  
+    var icn;
+    if (ic == "01d" || ic == "01n") {
+      icn = $('<i class="fa-solid fa-sun"></i>');
+    } else if (ic == "02d" || ic == "02n") {
+      icn = $('<i class="fa-solid fa-cloud-sun"></i>');
+    } else if (ic == "03d" || ic == "03n") {
+      icn = $('<i class="fa-solid fa-cloud"></i>');
+    } else if (ic == "04d" || ic == "04n") {
+      icn = $('<i class="fa-solid fa-cloud"></i>');
+    } else if (ic == "09d" || ic == "09n") {
+      icn = $('<i class="fa-solid fa-cloud-showers-heavy"></i>');
+    } else if (ic == "10d" || ic == "10n") {
+      icn = $('<i class="fa-solid fa-cloud-sun-rain"></i>');
+    } else if (ic == "11d" || ic == "11n") {
+      icn = $('<i class="fa-solid fa-cloud-bolt"></i>');
+    } else if (ic == "13d" || ic == "13n") {
+      icn = $('<i class="fa-solid fa-snowflake"></i>');
+    } else if (ic == "50d" || ic == "50n") {
+      icn = $('<i class="fa-solid fa-smog"></i>');
+    }
+    return icn;
+  }
+
+
 //Function five days forecast
 function fiveDaysForecast(responseF) {
-    console.log("weatherDispaly-ajax", responseF.list);
-    console.log("weatherDispaly-ajax-2", responseF.list[0]);
-    console.log("weatherDispaly-ajax-T", responseF.list[0].main.temp);
-    console.log("weatherDispaly-ajax-W", responseF.list[0].wind.speed);
-    console.log("weatherDispaly-ajax-H", responseF.list[0].main.humidity);
-    console.log("icon", responseF.list[0].weather[0].icon);
+    // Append tile to forecast section
+    $("#forecast").append("<h2>").text("5-Day Forecast:")
+
+    // Create the 5 weather forecast sections
     let days = [7, 15, 23, 31, 39];
     days.forEach(function(i) {
         // Creating a div to hold the five days forecast
-    var cityDiv2 = $("<div class='cityTwo'>");
-    // Storing the temperature data converting from K to C.
-    var temp = (responseF.list[i].main.temp - 273.15).toFixed(2);
-   
-    // Creating an element to have the temperature displayed
-    var pTemp = $("<p>").text(" Temp: " + temp + " °C");
-  
-    // Displaying the temperature
-    cityDiv2.append(pTemp);
-  
-    // Storing the information for wind
-    var wind = responseF.list[i].wind.speed;
-  
-    // Creating an element to hold the wind information
-    var pWind = $("<p>").text(" Wind: " + wind + " KPH");
-  
-    // Displaying the wind information
-    cityDiv2.append(pWind);
-  
-    // Storing the humidity
-    var humidity = responseF.list[i].main.humidity;
-  
-    // Creating an element to hold the humidity
-    var pHumidity = $("<p>").text(" Humidity: " + humidity + " %");
-  
-    // Appending the humidity
-    cityDiv2.append(pHumidity);
+        var cityDiv2 = $("<div class='cityTwo'>");
+
+        // Calling weather icons function
+        var ic = responseF.list[i].weather[0].icon;
+        var icn = weatherIcons(ic);
+
+        // Storing the temperature data converting from K to C.
+        var temp = (responseF.list[i].main.temp - 273.15).toFixed(2);
+    
+        // Creating an element to have the temperature displayed
+        var pTemp = $("<p>").text(" Temp: " + temp + " °C");
+    
+        // Displaying the temperature
+        cityDiv2.append(pTemp);
+    
+        // Storing the information for wind
+        var wind = responseF.list[i].wind.speed;
+    
+        // Creating an element to hold the wind information
+        var pWind = $("<p>").text(" Wind: " + wind + " KPH");
+    
+        // Displaying the wind information
+        cityDiv2.append(pWind);
+    
+        // Storing the humidity
+        var humidity = responseF.list[i].main.humidity;
+    
+        // Creating an element to hold the humidity
+        var pHumidity = $("<p>").text(" Humidity: " + humidity + " %");
+    
+        // Appending the humidity
+        cityDiv2.append(pHumidity);
+
+        // Putting the information on today's weather
+        $("#forecast").append(cityDiv2);
     });
-  
   
   }
 
 
 // Function add elemts to the HTML to display the content
 function weatherDisplay(locationW) {
+    // Empty section 'today' before starting a new session
     $("#today").empty();
     //var city = $(this).attr("data-name");
-    console.log("weatherDisplay:", locationW);
     // define lat and lon
     var lat = locationW[0];
     var lon = locationW[1];
@@ -83,42 +116,19 @@ function weatherDisplay(locationW) {
         url: queryURL,
         method: "GET",
     }).then(function(responseW) {
-        console.log("weatherDispaly-ajax", responseW.list);
-        console.log("weatherDispaly-ajax-2", responseW.list[0]);
-        console.log("weatherDispaly-ajax-T", responseW.list[0].main.temp);
-        console.log("weatherDispaly-ajax-W", responseW.list[0].wind.speed);
-        console.log("weatherDispaly-ajax-H", responseW.list[0].main.humidity);
-        console.log("icon", responseW.list[0].weather[0].icon);
         // Creating a div to hold the city
         var cityDiv = $("<div class='city'>");
         
         //Weather Icons
         var ic = responseW.list[0].weather[0].icon;
-        var icn;
-        if (ic == "01d" || ic == "01n") {
-            icn = $('<i class="fa-solid fa-sun"></i>');
-        } else if (ic == "02d" || ic == "02n") {
-            icn = $('<i class="fa-solid fa-cloud-sun"></i>');
-        } else if (ic == "03d" || ic == "03n") {
-            icn = $('<i class="fa-solid fa-cloud"></i>');
-        } else if (ic == "04d" || ic == "04n") {
-            icn = $('<i class="fa-solid fa-cloud"></i>');
-        } else if (ic == "09d" || ic == "09n") {
-            icn = $('<i class="fa-solid fa-cloud-showers-heavy"></i>');
-        } else if (ic == "10d" || ic == "10n") {
-            icn = $('<i class="fa-solid fa-cloud-sun-rain"></i>');
-        } else if (ic == "11d" || ic == "11n") {
-            icn = $('<i class="fa-solid fa-cloud-bolt"></i>');
-        } else if (ic == "13d" || ic == "13n") {
-            icn = $('<i class="fa-solid fa-snowflake"></i>');
-        } else if (ic == "50d" || ic == "50n") {
-            icn = $('<i class="fa-solid fa-smog"></i>');
-        }
+        var icn = weatherIcons(ic);
 
         //creating element to have name of city displayed
         var pCity = $("<p>").text(locationW[2] + " " + todayDate + " ");
+        //Append icon to dity name and date
         pCity.attr("id", "cityLabel");
         pCity.append(icn);
+
         // Dispalying the name
         cityDiv.append(pCity);
 
@@ -151,6 +161,9 @@ function weatherDisplay(locationW) {
     
         // Putting the information on today's weather
         $("#today").append(cityDiv);
+
+        // Call five days forecast function
+        fiveDaysForecast(responseW);
     });
 }
 
