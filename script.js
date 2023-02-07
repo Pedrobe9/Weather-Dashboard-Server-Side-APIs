@@ -62,6 +62,7 @@ function fiveDaysForecast(responseF) {
 
     // Create the 5 weather forecast sections
     let days = [7, 15, 23, 31, 39];
+    var d = 1;
     days.forEach(function(i) {
         // Creating a div to hold the five days forecast
         var cityDiv2 = $("<div class='cityTwo'>");
@@ -69,6 +70,16 @@ function fiveDaysForecast(responseF) {
         // Calling weather icons function
         var ic = responseF.list[i].weather[0].icon;
         var icn = weatherIcons(ic);
+
+        // Set day of forecast
+        var forecastDate = moment().add(d,'days').format("DD/MM/YYYY");
+        d++;
+        //Dispaly date
+        var dateDiv = $('<p>').text(forecastDate);
+        cityDiv2.append(dateDiv);
+
+        // display weather icon
+        cityDiv2.append(icn);
 
         // Storing the temperature data converting from K to C.
         var temp = (responseF.list[i].main.temp - 273.15).toFixed(2);
