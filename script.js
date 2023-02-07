@@ -53,6 +53,9 @@ function weatherIcons(ic) {
 
 //Function five days forecast
 function fiveDaysForecast(responseF) {
+    // Empty section 'forecast' before starting a new session
+    $("#forecast").empty();
+
     // Append tile to forecast section
     var hforecast = $('<h2 id="forecastId">').text("5-Day Forecast:");
     $("#forecast").append(hforecast);
@@ -240,4 +243,3 @@ $("#search-button").on("click", function(event) {
     console.log("location-click");
     
   });
-  
