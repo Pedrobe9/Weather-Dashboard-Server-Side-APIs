@@ -1,10 +1,49 @@
 
+#history {
+    width: 86%;
+}
+
+#cityLabel {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.city {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+
+#forecastDiv {
+    width: 100%;
+    display: flex;
+}
+
+#forecast {
+    width: 100%;
+}
+
+#forecastId {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.cityTwo {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    background-color: aqua;
+    border: 1px solid black;
+    margin: 10px;
+}
+
 .weather-header {
     width: 100%;
     height: 50px;
     background-image: linear-gradient(to right, rgb(16, 93, 248) , rgba(48, 36, 91, 0.893));
     text-align: center;
-
 }
 
 header h1 {
@@ -30,13 +69,11 @@ header h1 {
     width: 100%;
     margin-right: 0;
 }
-.hr {
-    color: black;
-}
+
 .input-group-append {
-    border: 1px solid ye llow;
     width: 100%;
 }
+
 #search-button {
     width: 100%;
     line-height: 15px;

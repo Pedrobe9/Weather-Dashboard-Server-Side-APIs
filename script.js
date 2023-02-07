@@ -54,7 +54,11 @@ function weatherIcons(ic) {
 //Function five days forecast
 function fiveDaysForecast(responseF) {
     // Append tile to forecast section
-    $("#forecast").append("<h2>").text("5-Day Forecast:")
+    var hforecast = $('<h2 id="forecastId">').text("5-Day Forecast:");
+    $("#forecast").append(hforecast);
+    
+    // Creating div to attach forecast to forecast title and display it
+    var forecastDiv = $("<div id='forecastDiv'>");
 
     // Create the 5 weather forecast sections
     let days = [7, 15, 23, 31, 39];
@@ -92,11 +96,13 @@ function fiveDaysForecast(responseF) {
     
         // Appending the humidity
         cityDiv2.append(pHumidity);
+        
+        forecastDiv.append(cityDiv2);
 
-        // Putting the information on today's weather
-        $("#forecast").append(cityDiv2);
     });
   
+    // Putting the information on today's weather
+    $("#forecast").append(forecastDiv);
   }
 
 
