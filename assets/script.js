@@ -9,7 +9,7 @@ var todayDate = moment().format("DD/MM/YYYY");
 // Find geolocation coordinates: lat, lon
 function geolocation(city) {
 
-  
+  var queryURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=73022bce8f98139a77816edb0e805bb7";
   // Creating an AJAX call for the specific movie button being clicked
   $.ajax({
     url: queryURL,
