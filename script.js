@@ -219,16 +219,25 @@ $("#search-button").on("click", function(event) {
     }
     // Adding city searched to array
     cities.push(city);
-    
+
+    // Clear search box after search
+    $("#search-input").val("");
+
     // Calling function to workout geolocation
     geolocation(city);
     console.log("location-click");
     // Calling renderButtons which handles the processing of cities history array
-    //renderCities();
+    renderCities();
   });
  
   // Adding a click event listener to all elements with a class of "city-btn"
-  //$(document).on("click", ".city-btn", weatherDisplay);
- 
-  // Calling the renderCities function to display the initial buttons????????????????????????????????
-  //renderCities();
+  $(document).on("click", ".city-btn", function(event) {
+    event.preventDefault();
+    console.log(event.target.innerText);
+    city = event.target.innerText.trim();
+    // Calling function to workout geolocation
+    geolocation(city);
+    console.log("location-click");
+    
+  });
+  
