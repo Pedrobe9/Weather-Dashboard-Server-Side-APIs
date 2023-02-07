@@ -12,14 +12,58 @@ function geolocation(city){
     var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=73022bce8f98139a77816edb0e805bb7";
     // Creating an AJAX call for the specific movie button being clicked
     $.ajax({
-      url: queryURL,
-      method: "GET"
+        url: queryURL,
+        method: "GET"
     }).then(function (response) {
-      var locationG = [response[0].lat, response[0].lon, city];
-      //return (locationG);
-      weatherDisplay(locationG);
+        var locationG = [response[0].lat, response[0].lon, city];
+        //return (locationG);
+        weatherDisplay(locationG);
     });
     
+}
+
+
+//Function five days forecast
+function fiveDaysForecast(responseF) {
+    console.log("weatherDispaly-ajax", responseF.list);
+    console.log("weatherDispaly-ajax-2", responseF.list[0]);
+    console.log("weatherDispaly-ajax-T", responseF.list[0].main.temp);
+    console.log("weatherDispaly-ajax-W", responseF.list[0].wind.speed);
+    console.log("weatherDispaly-ajax-H", responseF.list[0].main.humidity);
+    console.log("icon", responseF.list[0].weather[0].icon);
+    let days = [7, 15, 23, 31, 39];
+    days.forEach(function(i) {
+        // Creating a div to hold the five days forecast
+    var cityDiv2 = $("<div class='cityTwo'>");
+    // Storing the temperature data converting from K to C.
+    var temp = (responseF.list[i].main.temp - 273.15).toFixed(2);
+   
+    // Creating an element to have the temperature displayed
+    var pTemp = $("<p>").text(" Temp: " + temp + " °C");
+  
+    // Displaying the temperature
+    cityDiv2.append(pTemp);
+  
+    // Storing the information for wind
+    var wind = responseF.list[i].wind.speed;
+  
+    // Creating an element to hold the wind information
+    var pWind = $("<p>").text(" Wind: " + wind + " KPH");
+  
+    // Displaying the wind information
+    cityDiv2.append(pWind);
+  
+    // Storing the humidity
+    var humidity = responseF.list[i].main.humidity;
+  
+    // Creating an element to hold the humidity
+    var pHumidity = $("<p>").text(" Humidity: " + humidity + " %");
+  
+    // Appending the humidity
+    cityDiv2.append(pHumidity);
+    });
+  
+  
   }
 
 
