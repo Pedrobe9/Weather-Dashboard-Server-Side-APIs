@@ -187,6 +187,23 @@ function weatherDisplay(locationW) {
     });
 }
 
+
+function storedCities(city) {
+  // Check if there is any information in storage
+     cities = JSON.parse(localStorage.getItem('citiesStored'));
+     if (cities === null) {
+       cities = [];
+     }
+     
+    // Adding city searched to array if it is not already in it
+    if (!cities.includes(city)) {
+      cities.push(city);
+      // Stringify and store it
+      localStorage.setItem('citiesStored', JSON.stringify(cities));
+    }
+ }
+ 
+
 // Displaying list of cities in history
 function renderCities() {
 
@@ -215,20 +232,21 @@ $("#search-button").on("click", function(event) {
     // This line grabs the input from the textbox
     var city = $("#search-input").val().trim();
     city = city[0].toUpperCase() + city.substring(1);
-    console.log("city:", city);
+
     // Check id nothing has been entered
     if (city === "") {
         return;
     }
-    // Adding city searched to array
-    cities.push(city);
+
+    // Get cities searched in local store
+    storedCities(city);
 
     // Clear search box after search
     $("#search-input").val("");
 
     // Calling function to workout geolocation
     geolocation(city);
-    console.log("location-click");
+    
     // Calling renderButtons which handles the processing of cities history array
     renderCities();
   });
