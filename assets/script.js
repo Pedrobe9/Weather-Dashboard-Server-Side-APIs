@@ -128,7 +128,6 @@ function weatherDisplay(locationW) {
   // define lat and lon
   var lat = locationW[0];
   var lon = locationW[1];
-  console.log("lat lon:", lat, lon);
 
   var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=73022bce8f98139a77816edb0e805bb7";
   // Creating an AJAX call for the specific movie button being clicked
@@ -194,14 +193,12 @@ function storedCities(city) {
 
   if (cities === null) {
   cities = [];
-  console.log("cities2: ", cities);
   }
 
   // Adding city searched to array if it is not already in it
   if (city !== null && city !== undefined) {
     if (!cities.includes(city)) {
     cities.push(city);
-    console.log("cities3: ", cities);
     // Stringify and store it
     localStorage.setItem('citiesStored', JSON.stringify(cities));
     }
@@ -270,6 +267,5 @@ $(document).on("click", ".city-btn", function (event) {
   city = event.target.innerText.trim();
   // Calling function to workout geolocation
   geolocation(city);
-  console.log("location-click");
 
 });
