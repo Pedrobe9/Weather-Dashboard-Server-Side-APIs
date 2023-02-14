@@ -191,16 +191,22 @@ function weatherDisplay(locationW) {
 function storedCities(city) {
   // Check if there is any information in storage
   cities = JSON.parse(localStorage.getItem('citiesStored'));
+
   if (cities === null) {
-    cities = [];
+  cities = [];
+  console.log("cities2: ", cities);
   }
 
   // Adding city searched to array if it is not already in it
-  if (!cities.includes(city)) {
+  if (city !== null && city !== undefined) {
+    if (!cities.includes(city)) {
     cities.push(city);
+    console.log("cities3: ", cities);
     // Stringify and store it
     localStorage.setItem('citiesStored', JSON.stringify(cities));
+    }
   }
+
 }
 
 
@@ -212,7 +218,10 @@ function renderCities() {
 
   // Looping through the array of cities
   for (var i = 0; i < cities.length; i++) {
-
+    // If ther is any null do not render it
+    if (cities[i] === null) {
+      continue;
+    }
     // Dynamicaly generating buttons for each city in the array
     var btn = $("<button>");
     // Add class of city-btn to our button
@@ -226,17 +235,20 @@ function renderCities() {
   }
 }
 
+storedCities(city);
+renderCities();
 // This function handles events where a movie button is clicked
 $("#search-button").on("click", function (event) {
   event.preventDefault();
   // This line grabs the input from the textbox
   var city = $("#search-input").val().trim();
-  city = city[0].toUpperCase() + city.substring(1);
 
-  // Check id nothing has been entered
+  // Check if nothing has been entered
   if (city === "") {
     return;
   }
+
+  city = city[0].toUpperCase() + city.substring(1);
 
   // Get cities searched in local store
   storedCities(city);
@@ -254,7 +266,7 @@ $("#search-button").on("click", function (event) {
 // Adding a click event listener to all elements with a class of "city-btn"
 $(document).on("click", ".city-btn", function (event) {
   event.preventDefault();
-  console.log(event.target.innerText);
+  console.log("StoredCityBtn: ", event.target.innerText);
   city = event.target.innerText.trim();
   // Calling function to workout geolocation
   geolocation(city);
