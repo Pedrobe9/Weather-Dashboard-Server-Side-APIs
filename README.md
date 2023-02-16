@@ -13,6 +13,7 @@ Building the application has given me the opportunity of consolidating fundament
 See description.
 
 Link to the application deploid:   https://pedrobe9.github.io/Weather-Dashboard-Server-Side-APIs/
+Link to GitHUb repository:   https://github.com/Pedrobe9/Weather-Dashboard-Server-Side-APIs  
 
 
 ![weather dashboard screenshot](screenshots/weather-dashboard.png)
